@@ -11,14 +11,14 @@ fmtname(char *path)
 
   // Find first character after last slash.
   for(p=path+strlen(path); p >= path && *p != '/'; p--)
-    ;
-  p++;
+    ;   // the last p is '/'
+  p++;  // filename is stored in string p
 
   // Return blank-padded name.
   if(strlen(p) >= DIRSIZ)
-    return p;
-  memmove(buf, p, strlen(p));
-  memset(buf+strlen(p), ' ', DIRSIZ-strlen(p));
+    return p;       // string p is much bigger than a standard filename ? dir ?
+  memmove(buf, p, strlen(p));   // copy p to buf
+  memset(buf+strlen(p), ' ', DIRSIZ-strlen(p));   // make the end of the buf is blank-padded
   return buf;
 }
 
@@ -72,7 +72,7 @@ ls(char *path)
 
 int
 main(int argc, char *argv[])
-{
+{   // argc is the num of the shell line(eg: find x, argc is 2)
   int i;
 
   if(argc < 2){
